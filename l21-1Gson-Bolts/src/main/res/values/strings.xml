@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Gson-Bolts</string>
+
+    <!--MAIN-->
+    <string name="et_login_hint">login</string>
+    <string name="et_password_hint">password</string>
+    <string name="main_btn_login_text">Login</string>
+    <!--PROFILE-->
+    <string name="profile_tv_email_text">E-mail:</string>
+    <string name="profile_tv_first_name_text">First name:</string>
+    <string name="profile_tv_last_name_text">Last name:</string>
+    <string name="profile_tv_birth_date_text">Birth date:</string>
+    <string name="profile_tv_notes_text">Notes:</string>
+    <!--FORMATTER-->
+    <string name="format_url">http://pub.zame-dev.org/senla-training-addition/lesson-21.php?method=%1$s</string>
+
+    <string name="profile_btn_logout_text">Log out</string>
+    <string name="error_empty">Can\'t be empty</string>
+    <string name="error_incorrect_email">incorrect email!</string>
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="error_tv_margin_bottom">20dp</dimen>
+    <dimen name="main_padding">10dp</dimen>
+    <dimen name="profile_padding">10dp</dimen>
+    <dimen name="profile_tv_notes_margin_top">30dp</dimen>
+    <dimen name="profile_btn_margin_top">20dp</dimen>
+</resources>
