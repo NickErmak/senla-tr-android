@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Paranoid twitter</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">HLMicU7jHp68XkIW1WpRwnD4L</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">wkQUQB2uvsfJnxqNYPdWPS9R2yj3WcICeNBxlWLI2g5CdrYqay</string>
+    <string name="title_activity_twitter">TwitterActivity</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="drawer_setting_text">settings</string>
+    <string name="frag_authorization_title">Autorization</string>
+    <string name="frag_post_title">Posts</string>
+</resources>
