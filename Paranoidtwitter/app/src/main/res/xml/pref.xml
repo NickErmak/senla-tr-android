@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="asdfg"
+        android:title="@string/pref_title">
+        <ListPreference
+            android:entries="@array/pref_post_count"
+            android:entryValues="@array/pref_post_count"
+            android:key="@string/pref_post_count_key"
+            android:summary="@string/pref_post_count_summary"
+            android:title="@string/pref_post_count_title"
+            android:defaultValue="@string/pref_count_post_default">
+        </ListPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

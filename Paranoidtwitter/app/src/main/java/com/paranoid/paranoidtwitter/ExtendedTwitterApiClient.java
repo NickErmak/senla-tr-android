@@ -21,4 +21,5 @@ public class ExtendedTwitterApiClient extends TwitterApiClient {
         return getService(TwitterService.class);
     }
 
+
 }

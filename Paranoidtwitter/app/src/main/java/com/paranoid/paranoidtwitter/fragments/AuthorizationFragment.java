@@ -13,7 +13,8 @@ import android.widget.Toast;
 
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.R;
-import com.paranoid.paranoidtwitter.activities.MainActivity;
+import com.paranoid.paranoidtwitter.activities.TwitterBaseActivity;
+import com.paranoid.paranoidtwitter.utils.NetworkUtils;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -34,16 +35,17 @@ public class AuthorizationFragment extends AbstractFragment {
         return new AuthorizationFragment();
     }
 
-    public AuthorizationFragment() {}
+    public AuthorizationFragment() {
+    }
 
-    private static void requestEmailAddress(final Context context, TwitterSession session) {
+    private void requestEmailAddress(final Context context, TwitterSession session) {
         new TwitterAuthClient().requestEmail(session, new Callback<String>() {
             @Override
             public void success(Result<String> result) {
-                Log.e("TAG", "user's email: " + result.data);
+                App.getInstance().getState().setEmail(result.data);
                 LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(
                         new Intent(BROADCAST_ACTION)
-                                .putExtra(MainActivity.EXTRA_ACTION, MainActivity.ACTION.POSTS)
+                                .putExtra(TwitterBaseActivity.EXTRA_ACTION, TwitterBaseActivity.ACTION.SUCCESS_AUTH)
                 );
             }
 
@@ -76,6 +78,7 @@ public class AuthorizationFragment extends AbstractFragment {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.e("TAG", "success authorization");
+                NetworkUtils.initializeSession(result.data);
                 requestEmailAddress(getActivity(), result.data);
             }
 
@@ -99,12 +102,6 @@ public class AuthorizationFragment extends AbstractFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("TAG", "onActivityResult frag");
         mLoginBtn.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public String getFragmentTag() {
-        return FRAGMENT_TAG;
     }
 }

@@ -8,4 +8,14 @@
     <string name="drawer_setting_text">settings</string>
     <string name="frag_authorization_title">Autorization</string>
     <string name="frag_post_title">Posts</string>
+    <string name="frag_settings_title">Settings</string>
+    <string name="pref_title">Make the right choice:</string>
+    <string name="pref_post_count_title">Posts count</string>
+    <string name="pref_post_count_summary">Choose count of displayed posts</string>
+    <string name="pref_post_count_key">pref_post_count_key</string>
+    <string name="pref_count_post_default">5</string>
+    <string name="nav_view_home_title">Home</string>
+    <string name="nav_view_exit_title">Exit</string>
+    <string name="nav_view_log_out_title">Log out</string>
+    <string name="nav_view_settings_title">Settings</string>
 </resources>

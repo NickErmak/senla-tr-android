@@ -101,6 +101,7 @@ public class PostFragment extends AbstractFragment {
 
         mAdapter = new TweetRecyclerAdapter(App.getInstance().getState().getHomeTweets());
         recyclerView.setAdapter(mAdapter);
+
         refreshPosts();
     }
 
@@ -115,11 +116,6 @@ public class PostFragment extends AbstractFragment {
         if (mFragmentLifeCircle != null) {
             mFragmentLifeCircle.onFragmentStart(FRAGMENT_TITLE);
         }
-    }
-
-    @Override
-    public String getFragmentTag() {
-        return FRAGMENT_TAG;
     }
 
     @Override

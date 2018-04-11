@@ -1,11 +1,14 @@
 package com.paranoid.paranoidtwitter.providers;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.ExtendedTwitterApiClient;
+import com.paranoid.paranoidtwitter.R;
 import com.paranoid.paranoidtwitter.services.TwitterService;
 import com.paranoid.paranoidtwitter.utils.NetworkUtils;
 import com.twitter.sdk.android.core.Callback;
@@ -29,9 +32,12 @@ public class ApiTwitterProvider {
     }
 
     public static void refreshHomeTimeLine() {
+
+        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(App.getInstance());
+        int count = Integer.valueOf(sPref.getString(App.getInstance().getString(R.string.pref_post_count_key), "0"));
         TwitterService service = NetworkUtils.twitterApiClient.getTwitterService();
         Call<List<Tweet>> call = service.myHomeTimeline(
-                20,
+                count,
                 null,
                 null,
                 null,

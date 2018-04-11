@@ -1,6 +1,6 @@
 package com.paranoid.paranoidtwitter.fragments;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 
 public abstract class AbstractFragment extends Fragment {
 
@@ -8,5 +8,4 @@ public abstract class AbstractFragment extends Fragment {
         void onFragmentStart (String title);
     }
 
-    public abstract String getFragmentTag();
 }

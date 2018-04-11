@@ -35,7 +35,7 @@ public class App extends Application {
         /*check for existence active session.
         create auth api client for authenticated user or guest api client
          */
-        state.setAuth(NetworkUtils.initializeSession(TwitterCore.getInstance()
-                                .getSessionManager().getActiveSession()));
+        NetworkUtils.initializeSession(TwitterCore.getInstance()
+                                .getSessionManager().getActiveSession());
     }
 }
