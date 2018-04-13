@@ -17,6 +17,7 @@ public class State {
 
     private List<Tweet> homeTweets;
     private String email;
+    private String currentFragmentTag;
 
     public String getEmail() {
         return email;
@@ -47,5 +48,13 @@ public class State {
 
     public void setHomeTweets(List<Tweet> homeTweets) {
         this.homeTweets = homeTweets;
+    }
+
+    public String getCurrentFragmentTag() {
+        return currentFragmentTag;
+    }
+
+    public void setCurrentFragmentTag(String currentFragmentTag) {
+        this.currentFragmentTag = currentFragmentTag;
     }
 }

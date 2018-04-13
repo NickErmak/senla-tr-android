@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:twittersdk="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/app_accent">
 
-       <!-- <com.twitter.sdk.android.tweetui.TweetView
-            android:id="@+id/home_tweet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            twittersdk:tw__tweet_id="983702860654358529"/>   -->
-
-</LinearLayout>
+</FrameLayout>

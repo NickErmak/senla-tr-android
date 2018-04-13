@@ -10,37 +10,14 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.R;
-import com.paranoid.paranoidtwitter.activities.TimeLineActivity;
 import com.paranoid.paranoidtwitter.adapters.TweetRecyclerAdapter;
-import com.paranoid.paranoidtwitter.adapters.TwitterRecyclerAdapter;
 import com.paranoid.paranoidtwitter.providers.ApiTwitterProvider;
-import com.paranoid.paranoidtwitter.services.TwitterService;
-import com.paranoid.paranoidtwitter.utils.NetworkUtils;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterAuthClient;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.twitter.sdk.android.core.models.Tweet;
-import com.twitter.sdk.android.tweetui.FixedTweetTimeline;
-import com.twitter.sdk.android.tweetui.TimelineResult;
-import com.twitter.sdk.android.tweetui.TweetView;
-import com.twitter.sdk.android.tweetui.UserTimeline;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import retrofit2.Call;
 
 public class PostFragment extends AbstractFragment {
 
@@ -65,7 +42,8 @@ public class PostFragment extends AbstractFragment {
     private TweetRecyclerAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public PostFragment() {}
+    public PostFragment() {
+    }
 
     public static PostFragment newInstance() {
         return new PostFragment();
@@ -79,16 +57,14 @@ public class PostFragment extends AbstractFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_post, null);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_post, parent, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.post_swipe_refresh);
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -98,10 +74,8 @@ public class PostFragment extends AbstractFragment {
 
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.tweets_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        mAdapter = new TweetRecyclerAdapter(App.getInstance().getState().getHomeTweets());
+        mAdapter = new TweetRecyclerAdapter(getActivity(), App.getInstance().getState().getHomeTweets());
         recyclerView.setAdapter(mAdapter);
-
         refreshPosts();
     }
 

@@ -1,8 +1,11 @@
 package com.paranoid.paranoidtwitter.services;
 
+import com.google.gson.JsonArray;
 import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.models.User;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

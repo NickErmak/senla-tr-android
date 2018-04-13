@@ -20,6 +20,4 @@ public class ExtendedTwitterApiClient extends TwitterApiClient {
     public TwitterService getTwitterService() {
         return getService(TwitterService.class);
     }
-
-
 }

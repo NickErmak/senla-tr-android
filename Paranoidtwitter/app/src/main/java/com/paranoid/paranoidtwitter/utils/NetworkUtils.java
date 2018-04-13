@@ -1,12 +1,21 @@
 package com.paranoid.paranoidtwitter.utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.ExtendedTwitterApiClient;
+import com.paranoid.paranoidtwitter.activities.TwitterBaseActivity;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -39,5 +48,4 @@ public class NetworkUtils {
             return false;
         }
     }
-
 }
