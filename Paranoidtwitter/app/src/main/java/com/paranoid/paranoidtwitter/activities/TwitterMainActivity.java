@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.R;
 import com.paranoid.paranoidtwitter.adapters.TweetRecyclerAdapter;
+import com.paranoid.paranoidtwitter.fragments.AbstractFragment;
 import com.paranoid.paranoidtwitter.fragments.AuthorizationFragment;
 import com.paranoid.paranoidtwitter.fragments.PostFragment;
 import com.paranoid.paranoidtwitter.fragments.SaveImageFragment;
@@ -21,7 +22,7 @@ public class TwitterMainActivity extends TwitterBaseActivity
 
     @Override
     public void forwardHome(TwitterSession session) {
-        ApiTwitterProvider.requestEmailAddress(getApplicationContext());
+        ApiTwitterProvider.requestEmailAddress(this);
         showFragment(PostFragment.newInstance(), PostFragment.FRAGMENT_TAG, true);
     }
 
@@ -39,9 +40,10 @@ public class TwitterMainActivity extends TwitterBaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String currentFragmentTag = App.getInstance().getState().getCurrentFragmentTag();
-        if (currentFragmentTag != null) {
-            showFragment(getSupportFragmentManager().findFragmentByTag(currentFragmentTag), currentFragmentTag, false);
+        String currentFragTag = App.getInstance().getState().getCurrentFragmentTag();
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(currentFragTag);
+        if (frag != null) {
+            showFragment(frag, currentFragTag, false);
         } else if (App.getInstance().getState().isAuth()) {
             ApiTwitterProvider.requestEmailAddress(this);
             showFragment(PostFragment.newInstance(), AuthorizationFragment.FRAGMENT_TAG, false);

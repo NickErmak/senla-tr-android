@@ -13,6 +13,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.R;
 import com.paranoid.paranoidtwitter.activities.TwitterBaseActivity;
+import com.paranoid.paranoidtwitter.helpers.PreferenceHelper;
 import com.paranoid.paranoidtwitter.services.TwitterService;
 import com.paranoid.paranoidtwitter.utils.BroadcastUtils;
 import com.paranoid.paranoidtwitter.utils.NetworkUtils;
@@ -30,21 +31,14 @@ import retrofit2.Call;
 
 public class ApiTwitterProvider {
 
-    public static final String BROADCAST_ACTION = "local:ApiTwitterProvider.BROADCAST_ACTION";
-    public static final String EXTRA_API_ACTION = "EXTRA_API_ACTION";
-
-    public enum API_ACTION {
-        GET_HOME_TIMELINE
-    }
-
     public static void requestEmailAddress(final Context context) {
         new TwitterAuthClient().requestEmail(
-                TwitterCore.getInstance().getSessionManager().getActiveSession(),
+                NetworkUtils.session,
                 new Callback<String>() {
                     @Override
                     public void success(Result<String> result) {
                         App.getInstance().getState().setEmail(result.data);
-                        BroadcastUtils.sendBroadcast(TwitterBaseActivity.ACTION.SUCCESS_EMAIL);
+                        BroadcastUtils.sendBroadcast(BroadcastUtils.ACTION.SUCCESS_EMAIL);
                     }
 
                     @Override
@@ -56,14 +50,13 @@ public class ApiTwitterProvider {
         );
     }
 
-    public static void refreshHomeTimeLine() {
-
-        SharedPreferences sPref = PreferenceManager.getDefaultSharedPreferences(App.getInstance());
-        int count = Integer.valueOf(sPref.getString(App.getInstance().getString(R.string.pref_post_count_key), "0"));
+    public static void refreshHomeTimeLine(Long lastTweetId) {
+        App app = App.getInstance();
+        int count = PreferenceHelper.getPostCount();
         TwitterService service = NetworkUtils.twitterApiClient.getTwitterService();
         Call<List<Tweet>> call = service.myHomeTimeline(
                 count,
-                null,
+                lastTweetId,
                 null,
                 null,
                 null,
@@ -74,15 +67,13 @@ public class ApiTwitterProvider {
         call.enqueue(new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> result) {
-                App.getInstance().getState().setHomeTweets(result.data);
-                LocalBroadcastManager.getInstance(App.getInstance()).sendBroadcast(
-                        new Intent(BROADCAST_ACTION)
-                                .putExtra(EXTRA_API_ACTION, API_ACTION.GET_HOME_TIMELINE)
-                );
+                app.getState().refreshHomeTweets(result.data);
+                BroadcastUtils.sendBroadcast(BroadcastUtils.ACTION.SUCCESS_POST_UPDATE);
             }
 
             @Override
             public void failure(TwitterException exception) {
+                BroadcastUtils.sendBroadcast(BroadcastUtils.ACTION.ERROR_POST_UPDATE);
                 Log.e("TAG", "exception get home status = " + exception.getMessage());
             }
         });

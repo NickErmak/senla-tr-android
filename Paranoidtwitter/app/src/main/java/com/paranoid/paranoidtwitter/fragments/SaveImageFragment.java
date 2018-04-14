@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.R;
+import com.paranoid.paranoidtwitter.providers.DownloadProvider;
 import com.paranoid.paranoidtwitter.utils.ImageUtils;
 import com.paranoid.paranoidtwitter.utils.PermissionUtils;
 
@@ -60,7 +61,8 @@ public class SaveImageFragment extends AbstractFragment {
             @Override
             public void onClick(View v) {
                 if (getActivity() != null) {
-                    ImageUtils.saveImage(imageUrl, getActivity());
+                    DownloadProvider.save(getActivity(), imageUrl);
+                   // ImageUtils.saveImage(imageUrl, getActivity());
                 }
             }
         });
@@ -80,7 +82,8 @@ public class SaveImageFragment extends AbstractFragment {
         switch (requestCode) {
             case PermissionUtils.MY_PERMISSIONS_REQUEST:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    ImageUtils.saveImage(imageUrl, getActivity());
+                    DownloadProvider.save(getActivity(), imageUrl);
+                   // ImageUtils.saveImage(imageUrl, getActivity());
                     Log.e("TAG", "getPermissionResult");
                 } else {
                     Toast.makeText(

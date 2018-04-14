@@ -25,27 +25,23 @@ import com.paranoid.paranoidtwitter.fragments.AbstractFragment;
 import com.paranoid.paranoidtwitter.fragments.AuthorizationFragment;
 import com.paranoid.paranoidtwitter.fragments.PostFragment;
 import com.paranoid.paranoidtwitter.fragments.PrefFragment;
+import com.paranoid.paranoidtwitter.helpers.NavigationHelper;
 import com.paranoid.paranoidtwitter.utils.BroadcastUtils;
-import com.paranoid.paranoidtwitter.utils.NavigationHeaderUtils;
-import com.twitter.sdk.android.core.TwitterCore;
 
 public class TwitterBaseActivity extends AppCompatActivity implements AbstractFragment.FragmentLifeCircle {
-    public static final String EXTRA_ACTION = "EXTRA_ACTION";
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
 
-    public enum ACTION {SUCCESS_EMAIL}
-
     private BroadcastReceiver receiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            TwitterBaseActivity.ACTION action = (TwitterBaseActivity.ACTION) intent.getSerializableExtra(EXTRA_ACTION);
+            BroadcastUtils.ACTION action = (BroadcastUtils.ACTION) intent.getSerializableExtra(BroadcastUtils.EXTRA_ACTION);
             switch (action) {
                 case SUCCESS_EMAIL:
-                    NavigationHeaderUtils.refreshHeader(mNavigationView);
+                    NavigationHelper.refreshHeader(mNavigationView);
                     break;
             }
         }
@@ -67,7 +63,6 @@ public class TwitterBaseActivity extends AppCompatActivity implements AbstractFr
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frag_frame, frag, tag);
         if (!tag.equals(App.getInstance().getState().getCurrentFragmentTag())) {
-            Log.e("TAG", "add to backstack");
             transaction.addToBackStack(tag);
             App.getInstance().getState().setCurrentFragmentTag(tag);
         }
@@ -102,9 +97,8 @@ public class TwitterBaseActivity extends AppCompatActivity implements AbstractFr
                             showFragment(PrefFragment.newInstance(), PrefFragment.FRAGMENT_TAG, false);
                             break;
                         case R.id.nav_log_out:
-                            Log.e("TAG", "clear session");
-                            TwitterCore.getInstance().getSessionManager().clearActiveSession();
-                            App.getInstance().getState().setAuth(false);
+                            NavigationHelper.logOut();
+                            NavigationHelper.refreshHeader(mNavigationView);
                         case R.id.nav_home:
                             if (App.getInstance().getState().isAuth()) {
                                 showFragment(PostFragment.newInstance(), PostFragment.FRAGMENT_TAG, true);

@@ -24,6 +24,7 @@ public class NetworkUtils {
 
     public static final OkHttpClient okHttpClient;
     public static ExtendedTwitterApiClient twitterApiClient;
+    public static TwitterSession session;
 
     //adding interceptor for okHttp client
     static {
@@ -37,6 +38,7 @@ public class NetworkUtils {
         if (session != null) {
             Log.e("TAG", "active session");
             App.getInstance().getState().setAuth(true);
+            NetworkUtils.session = session;
             twitterApiClient = new ExtendedTwitterApiClient(session, okHttpClient);
             TwitterCore.getInstance().addApiClient(session, twitterApiClient);
             return true;

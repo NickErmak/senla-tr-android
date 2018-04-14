@@ -1,21 +1,21 @@
 package com.paranoid.paranoidtwitter.models;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
+import com.paranoid.paranoidtwitter.helpers.PreferenceHelper;
 import com.twitter.sdk.android.core.models.Tweet;
-import com.twitter.sdk.android.tweetui.FixedTweetTimeline;
-import com.twitter.sdk.android.tweetui.TweetUtils;
-import com.twitter.sdk.android.tweetui.UserTimeline;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class State {
 
-    private List<Tweet> homeTweets;
+    private Queue<Tweet> homeTweets;
     private String email;
     private String currentFragmentTag;
 
@@ -30,9 +30,8 @@ public class State {
     private boolean isAuth;
 
     public State() {
-        homeTweets = new ArrayList<>();
+        homeTweets = new LinkedList<>();
     }
-
 
     public boolean isAuth() {
         return isAuth;
@@ -43,11 +42,17 @@ public class State {
     }
 
     public List<Tweet> getHomeTweets() {
-        return homeTweets;
+        return new ArrayList<>(homeTweets);
     }
 
-    public void setHomeTweets(List<Tweet> homeTweets) {
-        this.homeTweets = homeTweets;
+    public void refreshHomeTweets(List<Tweet> newTweets) {
+        int postCount = PreferenceHelper.getPostCount();
+        Log.e("TAG", "count tweets = " + newTweets.size());
+        for (Tweet tweet: newTweets) {
+            ++postCount;
+            if (postCount < newTweets.size()) {homeTweets.poll(); }
+            homeTweets.add(tweet);
+        }
     }
 
     public String getCurrentFragmentTag() {

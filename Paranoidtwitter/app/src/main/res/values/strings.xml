@@ -23,5 +23,8 @@
     <string name="twitter_saved_pictures_folder">twitter_pictures</string>
     <string name="image_name_format">Twitter-image-%1$d.jpg</string>
     <string name="toast_permission_write_external_not_granted">Access denied</string>
+    <string name="toast_msg_image_saved">Image saved</string>
+    <string name="nav_header_default_title">Guest session</string>
+    <string name="toast_msg_connection_error">Connection error</string>
 
 </resources>

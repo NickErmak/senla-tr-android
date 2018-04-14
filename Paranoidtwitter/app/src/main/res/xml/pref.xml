@@ -3,7 +3,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:key="asdfg"
         android:title="@string/pref_title">
         <ListPreference
             android:entries="@array/pref_post_count"
