@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.paranoid.paranoidtwitter.App;
 import com.paranoid.paranoidtwitter.R;
 import com.paranoid.paranoidtwitter.adapters.TweetRecyclerAdapter;
+import com.paranoid.paranoidtwitter.helpers.PreferenceHelper;
 import com.paranoid.paranoidtwitter.models.State;
 import com.paranoid.paranoidtwitter.providers.ApiTwitterProvider;
 import com.paranoid.paranoidtwitter.utils.BroadcastUtils;
@@ -90,13 +91,9 @@ public class PostFragment extends AbstractFragment {
     }
 
     private void refreshPosts() {
-        App.getInstance().getState();
         mSwipeRefreshLayout.setRefreshing(true);
-        Long id = null;
-        if (!state.getHomeTweets().isEmpty()) {
-            id = state.getHomeTweets().get(0).getId();
-        }
-        ApiTwitterProvider.refreshHomeTimeLine(id);
+        int countPref = PreferenceHelper.getPostCount();
+        ApiTwitterProvider.refreshHomeTimeLine(countPref);
     }
 
     @Override

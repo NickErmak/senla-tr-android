@@ -15,7 +15,7 @@ import java.util.Queue;
 
 public class State {
 
-    private Queue<Tweet> homeTweets;
+    private List<Tweet> homeTweets;
     private String email;
     private String currentFragmentTag;
 
@@ -42,17 +42,11 @@ public class State {
     }
 
     public List<Tweet> getHomeTweets() {
-        return new ArrayList<>(homeTweets);
+        return homeTweets;
     }
 
-    public void refreshHomeTweets(List<Tweet> newTweets) {
-        int postCount = PreferenceHelper.getPostCount();
-        Log.e("TAG", "count tweets = " + newTweets.size());
-        for (Tweet tweet: newTweets) {
-            ++postCount;
-            if (postCount < newTweets.size()) {homeTweets.poll(); }
-            homeTweets.add(tweet);
-        }
+    public void setHomeTweets(List<Tweet> homeTweets) {
+        this.homeTweets = homeTweets;
     }
 
     public String getCurrentFragmentTag() {

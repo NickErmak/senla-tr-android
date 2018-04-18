@@ -50,13 +50,12 @@ public class ApiTwitterProvider {
         );
     }
 
-    public static void refreshHomeTimeLine(Long lastTweetId) {
+    public static void refreshHomeTimeLine(int count) {
         App app = App.getInstance();
-        int count = PreferenceHelper.getPostCount();
         TwitterService service = NetworkUtils.twitterApiClient.getTwitterService();
         Call<List<Tweet>> call = service.myHomeTimeline(
                 count,
-                lastTweetId,
+                null,
                 null,
                 null,
                 null,
@@ -67,7 +66,7 @@ public class ApiTwitterProvider {
         call.enqueue(new Callback<List<Tweet>>() {
             @Override
             public void success(Result<List<Tweet>> result) {
-                app.getState().refreshHomeTweets(result.data);
+                app.getState().setHomeTweets(result.data);
                 BroadcastUtils.sendBroadcast(BroadcastUtils.ACTION.SUCCESS_POST_UPDATE);
             }
 
